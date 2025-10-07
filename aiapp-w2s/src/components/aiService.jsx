@@ -1,12 +1,5 @@
-import { InvokeLLM } from '@/api/integrations';
-
 /**
  * Central AI service for generating responses
- * 
- * To integrate Google AI later:
- * 1. Add your Google AI API key configuration here
- * 2. Update this function to call Google AI API instead of InvokeLLM
- * 3. The rest of the app will automatically use the new integration
  */
 export async function getAiResponse({ prompt, systemPrompt, conversationHistory, businessContext }) {
   // Build the full prompt with system instructions and conversation history
@@ -27,21 +20,28 @@ export async function getAiResponse({ prompt, systemPrompt, conversationHistory,
     fullPrompt += '=== END BUSINESS CONTEXT ===\n';
   }
   
-  if (conversationHistory && conversationHistory.length > 0) {
-    fullPrompt += '\n\nConversation:\n' + conversationHistory
-      .map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`)
-      .join('\n');
-  }
-  
-  fullPrompt += '\n\nAssistant:';
-  
-  // Currently using the default InvokeLLM integration
-  // TODO: Replace with Google AI when API key is available
-  const response = await InvokeLLM({
-    prompt: fullPrompt
+  const history = conversationHistory.map(m => ({
+    role: m.role === 'user' ? 'user' : 'model',
+    parts: [{ text: m.content }],
+  }));
+
+  const response = await fetch('/api/ai/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      prompt: fullPrompt + '\n\n' + prompt,
+      conversationHistory: history,
+    }),
   });
-  
-  return response;
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data.response;
 }
 
 /**
