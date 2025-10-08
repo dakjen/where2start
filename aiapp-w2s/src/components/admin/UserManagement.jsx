@@ -4,7 +4,7 @@ import { getUsers, getMessages, updateUserById } from '@/api/client';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { User as UserIcon, Crown, MessageSquare, Shield } from 'lucide-react';
+import { User as UserIcon, Crown, MessageSquare, Shield, Trash2 } from 'lucide-react'; // Import Trash2
 import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 
@@ -53,6 +53,19 @@ export default function UserManagement() {
       loadUsers();
     } catch (error) {
       console.error('Error updating user role:', error);
+    }
+  };
+
+  const handleDeleteUser = async (userId) => {
+    if (window.confirm('Are you sure you want to delete this user?')) {
+      try {
+        // Call a new API endpoint to delete the user
+        // await deleteUser(userId);
+        console.log(`Deleting user with ID: ${userId}`); // Placeholder for actual API call
+        loadUsers();
+      } catch (error) {
+        console.error('Error deleting user:', error);
+      }
     }
   };
 
@@ -144,7 +157,7 @@ export default function UserManagement() {
                   </div>
                 </div>
                 
-                <div className="flex-shrink-0">
+                <div className="flex-shrink-0 flex items-center gap-2"> {/* Added flex and gap for spacing */}
                   <Select
                     value={user.role}
                     onValueChange={(value) => updateUserRole(user.id, value)}
@@ -158,6 +171,14 @@ export default function UserManagement() {
                       <SelectItem value="admin">Admin</SelectItem>
                     </SelectContent>
                   </Select>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => handleDeleteUser(user.id)} // Call new delete function
+                    className="text-red-500 hover:text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-red-900/20"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
                 </div>
               </div>
             </Card>

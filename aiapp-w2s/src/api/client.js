@@ -64,6 +64,19 @@ export const updateUserById = (userId, userData) => {
   });
 };
 
+export const createUser = (userData) => {
+  return fetchWrapper(`${API_URL}/users`, {
+    method: 'POST',
+    body: JSON.stringify(userData),
+  });
+};
+
+export const deleteUser = (userId) => {
+  return fetchWrapper(`${API_URL}/users/${userId}`, {
+    method: 'DELETE',
+  });
+};
+
 export const getMessages = () => {
   return fetchWrapper(`${API_URL}/messages`);
 };

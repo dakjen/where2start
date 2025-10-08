@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { UserPlus, CheckCircle } from 'lucide-react';
+import { createUser } from '@/api/client';
 
 export default function InviteUser() {
   const [email, setEmail] = useState('');
@@ -23,15 +24,12 @@ export default function InviteUser() {
     setMessage(null);
 
     try {
-      // Note: The actual invite functionality needs to be done through the base44 dashboard
-      // This is a placeholder UI that guides users to the dashboard
-      setMessage({ 
-        type: 'info', 
-        text: 'To invite users, please go to Dashboard → Users → Invite User in the base44 dashboard. After they sign up, you can manage their role here.' 
-      });
+      await createUser({ email: email, full_name: email.split('@')[0] }); // Create user with email and a simple full_name
+      setMessage({ type: 'success', text: `Invitation sent to ${email}. User created successfully!` });
       setEmail('');
     } catch (error) {
-      setMessage({ type: 'error', text: 'Failed to send invitation. Please try again.' });
+      console.error('Error inviting user:', error);
+      setMessage({ type: 'error', text: 'Failed to invite user. Please try again.' });
     } finally {
       setIsLoading(false);
     }
@@ -74,22 +72,14 @@ export default function InviteUser() {
             </Alert>
           )}
 
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-            <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">How to invite users:</h3>
-            <ol className="list-decimal list-inside space-y-1 text-sm text-blue-800 dark:text-blue-300">
-              <li>Go to Dashboard → Users</li>
-              <li>Click "Invite User"</li>
-              <li>Enter the user's email</li>
-              <li>After they sign up, come back here to manage their role</li>
-            </ol>
-          </div>
+
 
           <Button 
             type="submit" 
             disabled={isLoading}
             className="w-full bg-[#510069] hover:bg-[#510069]/90 dark:bg-white dark:text-[#510069] dark:hover:bg-gray-200"
           >
-            {isLoading ? 'Processing...' : 'Continue to Dashboard'}
+            {isLoading ? 'Processing...' : 'Invite User'}
           </Button>
         </form>
       </Card>

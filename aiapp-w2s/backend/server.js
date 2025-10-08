@@ -12,7 +12,6 @@ let mockUsers = [
     id: '1',
     name: 'Test User',
     email: 'test@example.com',
-    role: 'user',
     onboarding_completed: true,
     business_type: 'has_business',
     full_name: 'Test User',
@@ -89,6 +88,31 @@ apiRouter.patch('/users/:id', (req, res) => {
   if (userIndex !== -1) {
     mockUsers[userIndex] = { ...mockUsers[userIndex], ...req.body };
     res.json(mockUsers[userIndex]);
+  } else {
+    res.status(404).send('User not found');
+  }
+});
+
+// Create a new user
+apiRouter.post('/users', (req, res) => {
+  const newUser = {
+    id: (mockUsers.length + 1).toString(), // Simple ID generation
+    ...req.body,
+    created_date: new Date().toISOString(),
+    onboarding_completed: false, // New users start with onboarding not completed
+    role: 'user', // Default role
+  };
+  mockUsers.push(newUser);
+  res.status(201).json(newUser);
+});
+
+// Delete a user
+apiRouter.delete('/users/:id', (req, res) => {
+  const userId = req.params.id;
+  const userIndex = mockUsers.findIndex(u => u.id === userId);
+  if (userIndex !== -1) {
+    mockUsers.splice(userIndex, 1);
+    res.status(204).send(); // No content to send back
   } else {
     res.status(404).send('User not found');
   }
