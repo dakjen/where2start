@@ -54,6 +54,12 @@ let nextBusinessId = 1;
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+  res.removeHeader('Content-Security-Policy'); // Remove any existing CSP header
+  res.setHeader('Content-Security-Policy', "default-src 'self'; connect-src 'self' http://localhost:3001 ws://localhost:3001; style-src 'self' 'unsafe-inline'; img-src 'self' https://base44.com data:;");
+  next();
+});
+
 const apiRouter = express.Router();
 
 apiRouter.get('/', (req, res) => {

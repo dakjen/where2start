@@ -7,8 +7,8 @@ import { Input } from '@/components/ui/input';
 const questions = [
   'What is the name of your business?',
   'What industry is it in?',
-  'Where is your target market?',
-  'How many sales do you make a year?',
+  'Who is your target market?Is there a specific location you serve?',
+  'How many sales do you make a year? or How much revenue do you make?',
   'Are you service-based or product-based?',
   'What is your largest goal for this coming year?',
 ];
@@ -38,6 +38,13 @@ export default function GuidedPrompts({ onComplete }) {
       animate={{ opacity: 1, y: 0 }}
       className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md mb-4"
     >
+      {Object.entries(answers).map(([question, answer], index) => (
+        <div key={index} className="mb-2">
+          <p className="text-sm text-gray-500 dark:text-gray-400">{question}</p>
+          <p className="text-base font-medium text-gray-900 dark:text-white">{answer}</p>
+        </div>
+      ))}
+
       <p className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
         {questions[currentQuestionIndex]}
       </p>

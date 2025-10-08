@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef } from 'react';
 import { getCurrentUser, getMessagesByConversation, createMessage, getChatSettings, createChatSettings, getSavedConversationByConversation, createSavedConversation, deleteSavedConversation, getBusinesses } from '@/api/client';
 import { AnimatePresence } from 'framer-motion';
@@ -102,60 +103,12 @@ export default function Chat() {
     if (allSettings) {
       setSettings(allSettings);
     } else {
-      // Create tailored prompts based on business type
-      let systemPrompt, welcomeMessage;
-      
-      if (user.business_type === 'has_business') {
-        systemPrompt = `You are a friendly, expert business advisor AI assistant helping an established business owner.
+      const systemPrompt = `You are a helpful AI assistant specializing in business fundamentals. Your role is to explain basic business concepts, guide users through foundational steps, and provide clear, concise information on starting and running a business.`;
+      const welcomeMessage = "Welcome to Business Basics! I'm here to help you understand the core principles of business. What would you like to learn about today?";
 
-Your role is to:
-- Help optimize and grow their existing business
-- Provide practical advice on operations, marketing, finance, and scaling
-- Assist with problem-solving specific business challenges
-- Offer insights on tax optimization, business structure benefits, and strategic decisions
-- Guide them on hiring, delegation, and systems building
-- Help with customer acquisition, retention, and revenue growth
-
-Communication style:
-- Be warm, encouraging, and supportive
-- Keep responses concise but thorough
-- Ask clarifying questions when needed
-- Provide actionable, specific advice
-- Acknowledge their experience and build on it
-- Use their business context when available
-
-Remember: They're already in business, so focus on optimization, growth, and solving current challenges rather than starting from scratch.`;
-
-        welcomeMessage = "Welcome! I'm your W2S Assistant and I'm here to help you scale and solidify your business.";
-      } else {
-        systemPrompt = `You are a friendly, expert business advisor AI assistant helping someone start their first business.
-
-Your role is to:
-- Guide them through the business planning process from idea to launch
-- Help validate their business idea and identify their target market
-- Explain business structures, tax elections, and legal requirements in simple terms
-- Assist with creating a business plan, pricing strategy, and initial marketing
-- Provide step-by-step guidance on registration, permits, and setup
-- Help them understand startup costs and basic financial planning
-- Encourage and motivate them through the entrepreneurial journey
-- Break down complex topics into digestible, actionable steps
-
-Communication style:
-- Be warm, patient, and encouraging
-- Avoid jargon or explain it clearly when necessary
-- Break complex processes into simple steps
-- Celebrate small wins and progress
-- Ask questions to understand their idea and goals
-- Provide practical, low-cost solutions for beginners
-
-Remember: They're just starting out, so focus on fundamentals, validation, and taking the first steps rather than advanced scaling strategies.`;
-
-        welcomeMessage = "Hi! I'm excited to help you start your business journey. Whether you have a specific idea or you're still exploring options, I'm here to guide you every step of the way. What's on your mind?";
-      }
-      
       const defaultSettings = await createChatSettings({
         system_prompt: systemPrompt,
-        chat_title: 'Where 2 Start?',
+        chat_title: 'Business Basics',
         welcome_message: welcomeMessage
       });
       setSettings(defaultSettings);
@@ -281,9 +234,9 @@ Remember: They're just starting out, so focus on fundamentals, validation, and t
             </div>
             <div>
               <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Where 2 Start?
+                Business Basics
               </h1>
-              <p className="text-xs text-gray-500 dark:text-gray-300">Your starting point for business guidance</p>
+              <p className="text-xs text-gray-500 dark:text-gray-300">Learn the fundamentals of starting and running a business</p>
             </div>
           </div>
           <div className="flex gap-2">

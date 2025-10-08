@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, MessageSquare, Building2, Bookmark, History, Moon, Sun, Shield, User as UserIcon, Gift } from 'lucide-react';
+import { X, MessageSquare, Building2, Bookmark, History, Moon, Sun, Shield, User as UserIcon, Gift, Lightbulb } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
@@ -110,36 +110,29 @@ export default function Sidebar({ isOpen, onClose }) {
                   <Link to={createPageUrl('Chat')} onClick={onClose}>
                     <div className="flex items-center gap-3 p-4 rounded-xl hover:bg-[#e3d2e8] dark:hover:bg-white/10 transition-colors cursor-pointer group">
                       <div className="w-10 h-10 rounded-full bg-[#510069]/10 dark:bg-white/20 flex items-center justify-center group-hover:bg-[#510069]/20 dark:group-hover:bg-white/30 transition-colors">
-                        <MessageSquare className="w-5 h-5 text-[#510069] dark:text-white" />
+                        <Lightbulb className="w-5 h-5 text-[#510069] dark:text-white" />
                       </div>
-                      <span className="text-lg font-medium text-gray-900 dark:text-white">Chat</span>
+                      <span className="text-lg font-medium text-gray-900 dark:text-white">Where 2 Start?</span>
                     </div>
                   </Link>
 
-                  <Link to={createPageUrl('Profile')} onClick={onClose}>
-                    <div className="flex items-center gap-3 p-4 rounded-xl hover:bg-[#e3d2e8] dark:hover:bg-white/10 transition-colors cursor-pointer group">
-                      <div className="w-10 h-10 rounded-full bg-[#9ab292]/10 dark:bg-white/20 flex items-center justify-center group-hover:bg-[#9ab292]/20 dark:group-hover:bg-white/30 transition-colors">
-                        <UserIcon className="w-5 h-5 text-[#9ab292] dark:text-white" />
-                      </div>
-                      <span className="text-lg font-medium text-gray-900 dark:text-white">Profile</span>
-                    </div>
-                  </Link>
-
-                  <Link to={createPageUrl('ChatHistory')} onClick={onClose}>
-                    <div className="flex items-center gap-3 p-4 rounded-xl hover:bg-[#e3d2e8] dark:hover:bg-white/10 transition-colors cursor-pointer group">
-                      <div className="w-10 h-10 rounded-full bg-[#9ab292]/10 dark:bg-white/20 flex items-center justify-center group-hover:bg-[#9ab292]/20 dark:group-hover:bg-white/30 transition-colors">
-                        <History className="w-5 h-5 text-[#9ab292] dark:text-white" />
-                      </div>
-                      <span className="text-lg font-medium text-gray-900 dark:text-white">Chat History</span>
-                    </div>
-                  </Link>
-
-                  <Link to={createPageUrl('SavedChats')} onClick={onClose}>
+                  {/* New Link: Ask a Question */}
+                  <Link to={createPageUrl('AskAQuestion')} onClick={onClose}>
                     <div className="flex items-center gap-3 p-4 rounded-xl hover:bg-[#e3d2e8] dark:hover:bg-white/10 transition-colors cursor-pointer group">
                       <div className="w-10 h-10 rounded-full bg-[#510069]/10 dark:bg-white/20 flex items-center justify-center group-hover:bg-[#510069]/20 dark:group-hover:bg-white/30 transition-colors">
-                        <Bookmark className="w-5 h-5 text-[#510069] dark:text-white" />
+                        <MessageSquare className="w-5 h-5 text-[#510069] dark:text-white" />
                       </div>
-                      <span className="text-lg font-medium text-gray-900 dark:text-white">Saved Chats</span>
+                      <span className="text-lg font-medium text-gray-900 dark:text-white">Ask a Question</span>
+                    </div>
+                  </Link>
+
+                  {/* New Link: Business Basics */}
+                  <Link to={createPageUrl('BusinessBasics')} onClick={onClose}>
+                    <div className="flex items-center gap-3 p-4 rounded-xl hover:bg-[#e3d2e8] dark:hover:bg-white/10 transition-colors cursor-pointer group">
+                      <div className="w-10 h-10 rounded-full bg-[#9ab292]/10 dark:bg-white/20 flex items-center justify-center group-hover:bg-[#9ab292]/20 dark:group-hover:bg-white/30 transition-colors">
+                        <Building2 className="w-5 h-5 text-[#9ab292] dark:text-white" />
+                      </div>
+                      <span className="text-lg font-medium text-gray-900 dark:text-white">Business Basics</span>
                     </div>
                   </Link>
 
@@ -149,6 +142,15 @@ export default function Sidebar({ isOpen, onClose }) {
                         <Building2 className="w-5 h-5 text-[#9ab292] dark:text-white" />
                       </div>
                       <span className="text-lg font-medium text-gray-900 dark:text-white">Businesses</span>
+                    </div>
+                  </Link>
+
+                  <Link to={createPageUrl('Profile')} onClick={onClose}>
+                    <div className="flex items-center gap-3 p-4 rounded-xl hover:bg-[#e3d2e8] dark:hover:bg-white/10 transition-colors cursor-pointer group">
+                      <div className="w-10 h-10 rounded-full bg-[#9ab292]/10 dark:bg-white/20 flex items-center justify-center group-hover:bg-[#9ab292]/20 dark:group-hover:bg-white/30 transition-colors">
+                        <UserIcon className="w-5 h-5 text-[#9ab292] dark:text-white" />
+                      </div>
+                      <span className="text-lg font-medium text-gray-900 dark:text-white">Profile</span>
                     </div>
                   </Link>
 
