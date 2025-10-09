@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "echo 'Starting Vercel build...' && npm run build",
   "outputDirectory": "dist",
   "rewrites": [
     {
